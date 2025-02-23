@@ -1,10 +1,13 @@
 package me.chowlong.smolbackend.ip;
 
+import me.chowlong.smolbackend.ip.dto.CreateIPRequestDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/ips")
 public class IPController {
     private IPService ipService;
 
@@ -28,9 +31,9 @@ public class IPController {
     /** POST REQUESTS */
 
     @PostMapping("/create-ip")
-    public ResponseEntity createIp(@RequestBody String ip) {
+    public ResponseEntity createIp(@RequestBody @Validated CreateIPRequestDTO requestDTO) {
         try {
-            this.ipService.createIp(ip);
+            this.ipService.createIp(requestDTO);
             return ResponseEntity.ok(HttpStatus.CREATED);
         }
         catch (Exception e) {

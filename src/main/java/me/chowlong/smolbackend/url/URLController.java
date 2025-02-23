@@ -1,14 +1,15 @@
 package me.chowlong.smolbackend.url;
 
+import me.chowlong.smolbackend.url.dto.CreateURLRequestDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/urls")
 public class URLController {
     private URLService urlService;
 
@@ -18,7 +19,7 @@ public class URLController {
 
     /** GET REQUESTS */
 
-    @GetMapping("/get-urls/{ip}")
+    @GetMapping("/{ip}")
     public ResponseEntity<List<URL>> getUrls(@PathVariable("ip") String ip) {
          try {
              return new ResponseEntity<>(this.urlService.getUrlsById(ip), HttpStatus.OK);
@@ -26,5 +27,18 @@ public class URLController {
          catch (Exception e) {
              return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
          }
+    }
+
+    /** POST REQUESTS */
+
+    @GetMapping("/create-url")
+    public ResponseEntity createUrl(@RequestBody @Validated CreateURLRequestDTO requestDTO) {
+        try {
+            this.urlService.createUrl(requestDTO);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
