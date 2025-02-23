@@ -14,11 +14,8 @@ public class IPService {
         this.ipRepository = ipRepository;
     }
 
-    public IP findById(String ip) throws IPNotFoundException {
-        Optional<IP> result = this.ipRepository.findById(ip);
-        if (result.isEmpty())
-            throw new IPNotFoundException();
-        return result.get();
+    public Boolean existsById(String ip) {
+        return this.ipRepository.existsById(ip);
     }
 
     public void createIp(CreateIPRequestDTO requestDTO) {

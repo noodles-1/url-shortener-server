@@ -1,6 +1,7 @@
 package me.chowlong.smolbackend.url;
 
 import me.chowlong.smolbackend.url.dto.CreateURLRequestDTO;
+import me.chowlong.smolbackend.url.dto.URLResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/urls")
 public class URLController {
-    private URLService urlService;
+    private final URLService urlService;
 
     public URLController(URLService urlService) {
         this.urlService = urlService;
@@ -20,25 +21,26 @@ public class URLController {
     /** GET REQUESTS */
 
     @GetMapping("/{ip}")
-    public ResponseEntity<List<URL>> getUrls(@PathVariable("ip") String ip) {
+    public ResponseEntity<List<URLResponseDTO>> getUrls(@PathVariable("ip") String ip) {
          try {
-             return new ResponseEntity<>(this.urlService.getUrlsById(ip), HttpStatus.OK);
+             List<URL> results = this.urlService.getUrlsById(ip);
+             return ResponseEntity.ok(results.stream().map(URLResponseDTO::new).toList());
          }
          catch (Exception e) {
-             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
          }
     }
 
     /** POST REQUESTS */
 
-    @GetMapping("/create-url")
+    @PostMapping("/create-url")
     public ResponseEntity createUrl(@RequestBody @Validated CreateURLRequestDTO requestDTO) {
         try {
             this.urlService.createUrl(requestDTO);
             return ResponseEntity.ok(HttpStatus.CREATED);
         }
         catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

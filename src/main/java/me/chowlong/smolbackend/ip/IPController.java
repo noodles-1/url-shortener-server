@@ -18,13 +18,12 @@ public class IPController {
     /** GET REQUESTS */
 
     @GetMapping("/{ip}")
-    public ResponseEntity checkIpExists(@PathVariable("ip") String ip) {
+    public ResponseEntity<Boolean> checkIpExists(@PathVariable("ip") String ip) {
         try {
-            this.ipService.findById(ip);
-            return ResponseEntity.ok(HttpStatus.OK);
+            return ResponseEntity.ok(this.ipService.existsById(ip));
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
