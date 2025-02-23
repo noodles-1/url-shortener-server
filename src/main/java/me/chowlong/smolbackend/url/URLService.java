@@ -27,6 +27,10 @@ public class URLService {
         return this.urlRepository.findByIp_Id(ip);
     }
 
+    public URL getUrlByCustomLInk(String customLink) {
+        return this.urlRepository.findByCustomLink(customLink);
+    }
+
     public void createUrl(CreateURLRequestDTO requestDTO) throws IPNotFoundException {
         IP ip = this.ipRepository.findById(requestDTO.getIpId())
                 .orElseThrow(IPNotFoundException::new);

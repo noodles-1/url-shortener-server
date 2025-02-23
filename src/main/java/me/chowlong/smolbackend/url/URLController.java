@@ -21,7 +21,7 @@ public class URLController {
 
     /** GET REQUESTS */
 
-    @GetMapping("/{ip}")
+    @GetMapping("/ip/{ip}")
     public ResponseEntity<List<URLResponseDTO>> getUrls(@PathVariable("ip") String ip) {
          try {
              List<URL> results = this.urlService.getUrlsById(ip);
@@ -30,6 +30,17 @@ public class URLController {
          catch (Exception e) {
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
          }
+    }
+
+    @GetMapping("/custom-link/{customLink}")
+    public ResponseEntity<URLResponseDTO> getUrlByCustomLink(@PathVariable("customLink") String customLink) {
+        try {
+            URL result = this.urlService.getUrlByCustomLInk(customLink);
+            return ResponseEntity.ok(new URLResponseDTO(result));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     /** POST REQUESTS */
