@@ -12,10 +12,21 @@ public class IPService {
         this.ipRepository = ipRepository;
     }
 
-    public IP findById(String id) throws IPNotFoundException {
-        Optional<IP> ip = ipRepository.findById(id);
-        if (ip.isEmpty())
+    public IP findById(String ip) throws IPNotFoundException {
+        Optional<IP> result = ipRepository.findById(ip);
+        if (result.isEmpty())
             throw new IPNotFoundException();
-        return ip.get();
+        return result.get();
+    }
+
+    public void createIp(String ip) throws IPNotCreatedException {
+        try {
+            IP newIp = new IP();
+            newIp.setId(ip);
+            this.ipRepository.save(newIp);
+        }
+        catch (Exception e) {
+            throw new IPNotCreatedException();
+        }
     }
 }
