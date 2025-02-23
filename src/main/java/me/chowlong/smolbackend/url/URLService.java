@@ -6,8 +6,6 @@ import me.chowlong.smolbackend.ip.IPRepository;
 import me.chowlong.smolbackend.ip.exception.IPNotFoundException;
 import me.chowlong.smolbackend.url.dto.CreateURLRequestDTO;
 import me.chowlong.smolbackend.url.dto.EditURLRequestDTO;
-import me.chowlong.smolbackend.url.exception.URLNotCreatedException;
-import me.chowlong.smolbackend.url.exception.URLNotEditedException;
 import me.chowlong.smolbackend.url.exception.URLNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +22,7 @@ public class URLService {
     }
 
     public List<URL> getUrlsById(String ip) {
-        return this.urlRepository.findByIp_Id(ip);
+        return this.urlRepository.findByIp_Id(ip).reversed();
     }
 
     public URL getUrlByCustomLInk(String customLink) {
