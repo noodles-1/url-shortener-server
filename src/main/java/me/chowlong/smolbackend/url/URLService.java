@@ -3,8 +3,8 @@ package me.chowlong.smolbackend.url;
 import me.chowlong.smolbackend.ip.IP;
 import me.chowlong.smolbackend.ip.IPRepository;
 import me.chowlong.smolbackend.url.dto.CreateURLRequestDTO;
+import me.chowlong.smolbackend.url.exception.URLNotCreatedException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

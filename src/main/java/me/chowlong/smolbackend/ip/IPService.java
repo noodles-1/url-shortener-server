@@ -1,8 +1,8 @@
 package me.chowlong.smolbackend.ip;
 
 import me.chowlong.smolbackend.ip.dto.CreateIPRequestDTO;
+import me.chowlong.smolbackend.ip.exception.IPNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
