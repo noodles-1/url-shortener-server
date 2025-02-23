@@ -33,10 +33,19 @@ public class URLController {
     }
 
     @GetMapping("/custom-link/{customLink}")
-    public ResponseEntity<URLResponseDTO> getUrlByCustomLink(@PathVariable("customLink") String customLink) {
+    public ResponseEntity<Boolean> checkUrlExistsByCustomLink(@PathVariable("customLink") String customLink) {
         try {
-            URL result = this.urlService.getUrlByCustomLInk(customLink);
-            return ResponseEntity.ok(new URLResponseDTO(result));
+            return ResponseEntity.ok(this.urlService.existsByCustomLink(customLink));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/name-and-ip/{name}/{ip}")
+    public ResponseEntity<Boolean> checkUrlExistsByNameAndIp(@PathVariable("name") String name, @PathVariable("ip") String ip) {
+        try {
+            return ResponseEntity.ok(this.urlService.existsByNameAndIp(name, ip));
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -25,8 +25,12 @@ public class URLService {
         return this.urlRepository.findByIp_Id(ip).reversed();
     }
 
-    public URL getUrlByCustomLInk(String customLink) {
-        return this.urlRepository.findByCustomLink(customLink);
+    public Boolean existsByCustomLink(String customLink) {
+        return this.urlRepository.existsByCustomLinkLikeIgnoreCase(customLink);
+    }
+
+    public Boolean existsByNameAndIp(String name, String ip) {
+        return this.urlRepository.existsByNameAndIp_Id(name, ip);
     }
 
     public void createUrl(CreateURLRequestDTO requestDTO) throws IPNotFoundException {
@@ -48,7 +52,7 @@ public class URLService {
 
         url.setName(requestDTO.getNewName());
         url.setLink(requestDTO.getNewLink());
-        url.setCustomLink(requestDTO.getNewCustomLink());
+        url.setCustomLink(requestDTO.getNewCustomLink() == null ? CommonUtils.generateCustomLink() : requestDTO.getNewCustomLink());
 
         this.urlRepository.save(url);
     }
