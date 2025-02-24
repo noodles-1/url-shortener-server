@@ -25,6 +25,10 @@ public class URLService {
         return this.urlRepository.findByIp_Id(ip).reversed();
     }
 
+    public URL getUrlByCustomLink(String customLink) {
+        return this.urlRepository.findByCustomLink(customLink);
+    }
+
     public Boolean existsByCustomLink(String customLink) {
         return this.urlRepository.existsByCustomLinkLikeIgnoreCase(customLink);
     }

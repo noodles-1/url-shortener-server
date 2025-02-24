@@ -13,9 +13,11 @@ public class URLResponseDTO {
     private String customLink;
 
     public URLResponseDTO(URL url) {
-        this.id = url.getId();
-        this.name = url.getName();
-        this.link = url.getLink();
-        this.customLink = url.getCustomLink();
+        if (url != null) {
+            this.id = url.getId();
+            this.name = url.getName();
+            this.link = url.getLink();
+            this.customLink = url.getCustomLink();
+        }
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/ips")
 public class IPController {
-    private IPService ipService;
+    private final IPService ipService;
 
     public IPController(IPService ipService) {
         this.ipService = ipService;

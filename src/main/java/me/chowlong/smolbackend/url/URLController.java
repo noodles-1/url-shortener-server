@@ -32,6 +32,16 @@ public class URLController {
          }
     }
 
+    @GetMapping("/get-custom-link/{customLink}")
+    public ResponseEntity<URLResponseDTO> getUrlByCustomLink(@PathVariable("customLink") String customLink) {
+        try {
+            return ResponseEntity.ok(new URLResponseDTO(this.urlService.getUrlByCustomLink(customLink)));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
     @GetMapping("/custom-link/{customLink}")
     public ResponseEntity<Boolean> checkUrlExistsByCustomLink(@PathVariable("customLink") String customLink) {
         try {
