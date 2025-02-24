@@ -37,3 +37,10 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+jar {
+    enabled = false
+    manifest {
+        attributes('Main-Class': 'me.chowlong.smowbackend.SmolBackendApplication')
+    }
+}
