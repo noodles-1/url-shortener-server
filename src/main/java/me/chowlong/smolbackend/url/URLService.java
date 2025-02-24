@@ -30,7 +30,7 @@ public class URLService {
     }
 
     public Boolean existsByCustomLink(String customLink) {
-        return this.urlRepository.existsByCustomLinkLikeIgnoreCase(customLink);
+        return this.urlRepository.existsByCustomLink(customLink);
     }
 
     public Boolean existsByNameAndIp(String name, String ip) {
